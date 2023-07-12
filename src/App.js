@@ -3,12 +3,12 @@ import TextArea from "./components/textArea/TextArea"
 import './App.css';
 import { useState } from "react";
 import Alert from "./components/alert/Alert";
-// import About from "./components/about/About";
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route,
-// } from "react-router-dom";
+import About from "./components/about/About";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 
 function App() {
@@ -58,23 +58,23 @@ const toggleMode = ( ) => {
 
 return (
   <>
- {/* <Router> */}
+ <Router>
  <Navbar title="TextPedia" aboutText="About TextPedia" mode={mode} toggleMode={toggleMode} />
  <Alert alert={alert}/>
  <div className="container my-3">
-      {/* <Switch> */}
+      <Switch>
         
-        {/* <Route exact path="/"> */}
+        <Route exact path="/">
         <TextArea heading="Enter Text To Analyze" text="Enter Text Here" mode={mode} showAlert={showAlert} />
-        {/* </Route>
-
-        <Route exact path="/about">
-          <About />
         </Route>
 
-      </Switch> */}
+        <Route exact path="/about" >
+          <About mode={mode} />
+        </Route>
+
+      </Switch>
  </div>
- {/* </Router> */}
+ </Router>
 
   
 </>
