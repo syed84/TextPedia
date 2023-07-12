@@ -32,9 +32,11 @@ export default function TextArea(props) {
   };
   
   const onHandleCopy = () => {
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value);
+    // var text = document.getElementById("myBox");
+    // text.select();
+    // document.getSelection().removeAllRanges();   //deselection
+    // navigator.clipboard.writeText(text.value);
+    navigator.clipboard.writeText(text);
     props.showAlert("Copied to Clipboard!", "success")
     
   };
@@ -55,10 +57,10 @@ export default function TextArea(props) {
   const [text, setText] = useState("");
   //   text="NewText" //wrong way
   //   setText=("New Text"); //correct way
-  let words = text.split(" ").length;
+  let words = text.split(/\s+/).filter((ele)=>{return ele.length!==0}).length;
   return (
     <div>
-      <h1>{props.heading}</h1>
+      <h1 className="mb-3">{props.heading}</h1>
       <div className="mb-3">
         <textarea
           className="form-control"
@@ -70,21 +72,21 @@ export default function TextArea(props) {
         ></textarea>
       </div>
 
-      <button className="btn btn-primary mx-1" onClick={onHandleUpClick}>Convert to Uppercase</button>
-      <button className="btn btn-primary mx-1" onClick={onHandleLowClick}>Convert to Lowercase</button>
-      <button className="btn btn-primary mx-1" onClick={onHandleToClear}>Clear Text</button>
-      <button className="btn btn-primary mx-1" onClick={onHandleCopy}>Copy Text</button>
-      <button className="btn btn-primary mx-1" onClick={onHandleExtraSpaces}>Remove Extra Spaces</button>
-      <button className="btn btn-primary mx-1" onClick={onHandleCapitalize}>Capitalize</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleUpClick}>Convert to Uppercase</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleLowClick}>Convert to Lowercase</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleToClear}>Clear Text</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleCopy}>Copy Text</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleExtraSpaces}>Remove Extra Spaces</button>
+      <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={onHandleCapitalize}>Capitalize</button>
       <div className="container my-2">
         <h2>Your Text Summary</h2>
 
         <p>
-          {words} words &nbsp; {text.length} characters &nbsp; {words / 125}{" "}
+          {words} words &nbsp; {text.length} characters &nbsp; {words / 125} {" "}
           {words / 125 === 1 ? "minute taken to read" : "minutes taken to read"}
         </p>
         <h3>Preview</h3>
-        <p>{text.length > 0  ? text : "Enter Text Here"}</p>
+        <p>{text.length > 0  ? text : "Nothing to preview!"}</p>
       </div>
     </div>
   );
